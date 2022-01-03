@@ -1,0 +1,142 @@
+<div style="display: flex; justify-content: center; align-items: center">
+  <h1>New ticket</h1>
+  <div class="help">
+    ?
+    <span class="help-text"
+      >ID must be unique for each ticket. All fields except for comment are
+      required.</span
+    >
+  </div>
+</div>
+<form #myForm2="ngForm" (submit)="newFormSubmit(myForm2)">
+  <ul class="form-wrapper">
+    <li>
+      <label for="newId">ID:</label>
+      <input
+        #newID="ngModel"
+        class="form-control"
+        type="number"
+        id="newId"
+        required
+        [(ngModel)]="newId"
+        name="newId"
+      />
+    </li>
+    <li *ngIf="validateID(newId) == false" class="form_error">
+      ID already in use
+    </li>
+    <li
+      *ngIf="newID.errors?.['required'] && (subject.dirty || subject.touched)"
+      class="form_error"
+    >
+      ID is required
+    </li>
+    <li>
+      <label for="field1">Subject:</label>
+      <input
+        #subject="ngModel"
+        type="text"
+        id="field1"
+        required
+        [(ngModel)]="newSubject"
+        name="field1"
+      />
+    </li>
+    <li
+      *ngIf="subject.errors?.['required'] && (subject.dirty || subject.touched) || subject.errors?.['required'] && formSubmitted"
+      class="form_error"
+    >
+      Subject is required
+    </li>
+
+    <li>
+      <label for="category1">Category:</label>
+      <select
+        #category="ngModel"
+        class="form-control"
+        id="category1"
+        required
+        name="category1"
+        [(ngModel)]="newCategory"
+      >
+        <option value="Billing">Billing</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Developing">Developing</option>
+      </select>
+    </li>
+    <li
+      *ngIf="category.errors?.['required'] && (category.dirty || category.touched) || category.errors?.['required'] && formSubmitted"
+      class="form_error"
+    >
+      Category is required
+    </li>
+    <li>
+      <label for="field2">Assignee:</label>
+      <input
+        #assignee="ngModel"
+        type="text"
+        id="field2"
+        required
+        [(ngModel)]="newAssignee"
+        name="field2"
+      />
+    </li>
+    <li
+      *ngIf="assignee.errors?.['required'] && (assignee.dirty || assignee.touched) || assignee.errors?.['required'] && formSubmitted"
+      class="form_error"
+    >
+      Assignee is required
+    </li>
+    <li>
+      <label for="priority1">Priority:</label>
+      <select
+        #priority="ngModel"
+        class="form-control"
+        id="priority1"
+        required
+        name="priority1"
+        [(ngModel)]="newPriority"
+      >
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+    </li>
+    <li
+      *ngIf="priority.errors?.['required'] && (priority.dirty || priority.touched) || priority.errors?.['required'] && formSubmitted"
+      class="form_error"
+    >
+      Priority is required
+    </li>
+    <li>
+      <label for="status1">Status:</label>
+      <select
+        #status="ngModel"
+        class="form-control"
+        id="status1"
+        required
+        name="status1"
+        [(ngModel)]="newStatus"
+      >
+        <option value="Open">Open</option>
+        <option value="Solved">Solved</option>
+        <option value="Close">Close</option>
+      </select>
+    </li>
+    <li
+      *ngIf="status.errors?.['required'] && (status.dirty || status.touched) || status.errors?.['required'] && formSubmitted"
+      class="form_error"
+    >
+      Status is required
+    </li>
+    <li>
+      <label for="field3">Comment:</label>
+      <input type="text" id="field3" [(ngModel)]="newComment" name="field3" />
+    </li>
+    <li>
+      <input type="submit" value="submit" />
+      <button [routerLink]="'/'" class="cancel_btn">Cancel</button>
+    </li>
+  </ul>
+</form>
+<div *ngIf="formSuccess" class="form_success">Form successful!</div>

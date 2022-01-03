@@ -1,0 +1,53 @@
+<h1>Search tickets</h1>
+<div class="container">
+  <input
+    class="form-control search_input"
+    type="text"
+    name="search"
+    [(ngModel)]="searchText"
+    autocomplete="off"
+    placeholder="Search for ticket using ID"
+  />
+  <div class="help">
+    ?
+    <span class="help-text">Enter the ID of the ticket to search database</span>
+  </div>
+</div>
+
+<h1>Tickets</h1>
+<div class="tickets-wrapper">
+  <table id="tickets_table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Subject</th>
+        <th>Category</th>
+        <th>Assignee</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let ticket of tickets | searchFilter: searchText">
+        <td>{{ ticket.ID }}</td>
+        <td>{{ ticket.subject }}</td>
+        <td>{{ ticket.category }}</td>
+        <td>{{ ticket.assignee }}</td>
+        <td>{{ ticket.priority }}</td>
+        <td>{{ ticket.status }}</td>
+        <td>{{ ticket.comment }}</td>
+        <td>
+          <button
+            class="delete_btn"
+            type="button"
+            (click)="deleteTicket(ticket.ID)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

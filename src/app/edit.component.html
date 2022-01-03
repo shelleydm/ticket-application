@@ -1,0 +1,139 @@
+<div class="form-container">
+  <div style="display: flex; justify-content: center; align-items: center">
+    <h1>Edit ticket</h1>
+    <div class="help">
+      ?
+      <span class="help-text"
+        >Select ID of ticket to be edited. All fields except for comment are
+        required.</span
+      >
+    </div>
+  </div>
+
+  <form #myForm="ngForm" (submit)="editFormSubmit()">
+    <ul class="form-wrapper">
+      <li>
+        <label for="IDlist1">ID: </label>
+        <select
+          #selectID
+          class="form-control"
+          id="IDlist1"
+          required
+          name="IDlist1"
+          [(ngModel)]="id"
+          (change)="selectedID()"
+        >
+          <option *ngFor="let ticket of tickets" [value]="ticket.ID">
+            {{ ticket.ID }}
+          </option>
+        </select>
+      </li>
+      <li>
+        <label for="field1">Subject:</label>
+        <input
+          #editSubject="ngModel"
+          type="text"
+          id="field1"
+          required
+          [(ngModel)]="subject"
+          name="field1"
+        />
+      </li>
+      <li
+        *ngIf="editSubject.errors?.['required'] && (editSubject.dirty || editSubject.touched) || editSubject.errors?.['required'] && formSubmitted"
+        class="form_error"
+      >
+        Subject is required
+      </li>
+      <li>
+        <label for="category1">Category:</label>
+        <select
+          #editCategory="ngModel"
+          class="form-control"
+          id="category1"
+          required
+          name="category1"
+          [(ngModel)]="category"
+        >
+          <option value="Billing">Billing</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Developing">Developing</option>
+        </select>
+      </li>
+      <li
+        *ngIf="editCategory.errors?.['required'] && (editCategory.dirty || editCategory.touched) || editCategory.errors?.['required'] && formSubmitted"
+        class="form_error"
+      >
+        Category is required
+      </li>
+      <li>
+        <label for="field2">Assignee:</label>
+        <input
+          #editAssignee="ngModel"
+          type="text"
+          id="field2"
+          required
+          [(ngModel)]="assignee"
+          name="field2"
+        />
+      </li>
+      <li
+        *ngIf="editAssignee.errors?.['required'] && (editAssignee.dirty || editAssignee.touched) || editAssignee.errors?.['required'] && formSubmitted"
+        class="form_error"
+      >
+        Assignee is required
+      </li>
+      <li>
+        <label for="priority1">Priority:</label>
+        <select
+          #editPriority="ngModel"
+          class="form-control"
+          id="priority1"
+          required
+          name="priority1"
+          [(ngModel)]="priority"
+        >
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+      </li>
+      <li
+        *ngIf="editPriority.errors?.['required'] && (editPriority.dirty || editPriority.touched) || editPriority.errors?.['required'] && formSubmitted"
+        class="form_error"
+      >
+        Priority is required
+      </li>
+      <li>
+        <label for="status1">Status:</label>
+        <select
+          #editStatus="ngModel"
+          class="form-control"
+          id="status1"
+          required
+          name="status1"
+          [(ngModel)]="status"
+        >
+          <option value="Open">Open</option>
+          <option value="Solved">Solved</option>
+          <option value="Close">Close</option>
+        </select>
+      </li>
+      <li
+        *ngIf="editStatus.errors?.['required'] && (editStatus.dirty || editStatus.touched) || editStatus.errors?.['required'] && formSubmitted"
+        class="form_error"
+      >
+        Status is required
+      </li>
+      <li>
+        <label for="field3">Comment:</label>
+        <input type="text" id="field3" [(ngModel)]="comment" name="field3" />
+      </li>
+      <li>
+        <input type="submit" value="submit" />
+        <button [routerLink]="'/'" class="cancel_btn">Cancel</button>
+      </li>
+    </ul>
+  </form>
+  <div *ngIf="formSuccess" class="form_success">Form successful!</div>
+</div>
